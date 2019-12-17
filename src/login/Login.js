@@ -26,7 +26,7 @@ const Login = (props) => {
     //console.log(response)
     //console.log(response.data.token)
     if (response) {
-      localStorage.setItem("jwt", response.data.token)
+      rememberme ? localStorage.setItem("jwt", response.data.token) : sessionStorage.setItem("jwt", response.data.token)
     }
   };
 
