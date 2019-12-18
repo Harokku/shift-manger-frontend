@@ -91,7 +91,7 @@ const Login = (props) => {
                           <input
                             type="checkbox"
                             checked={rememberme}
-                            onChange={event => setRememberme(!event.target.value)}
+                            onChange={event => setRememberme(!event.target.checked)}
                             disabled={!formEnable}
                           />
                           Ricorda credenziali
