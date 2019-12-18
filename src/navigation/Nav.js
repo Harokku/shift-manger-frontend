@@ -38,7 +38,7 @@ const Nav = (props) => {
 
       <Switch>
         <Route path="/shift">
-          <Login/>
+
         </Route>
       </Switch>
 
