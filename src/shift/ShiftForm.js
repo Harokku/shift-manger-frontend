@@ -69,12 +69,11 @@ const ShiftForm = (props) => {
 
 
   // Handle submit posting data to backend
-  const devBackEnd = "http://localhost:1232"
   const handleSubmit = async () => {
     setIsFormEnable(false);
     try {
       await axios.post(
-        `${devBackEnd}/sheets/shift`,
+        `${backEnd}/sheets/shift`,
         marshalToBackEndFormat(),
         {
           headers: {
