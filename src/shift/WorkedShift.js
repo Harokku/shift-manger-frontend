@@ -5,19 +5,19 @@ import axios from "axios";
 import {readJWT} from "../utils/readJWT";
 
 
-const WorkedShift = (props) => {
-  const blankFrom = {
-    manualCompilation: true,
-    name: "",
-    date: moment().format("YYYY-MM-DD"),
-    location: "AAT",
-    shift: "Mattina",
-    vehicle: "MSA-1",
-    role: "Tecnico",
-  };
-  const [isFormEnable, setIsFormEnable] = useState(true);
+const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
+  // const blankFrom = {
+  //   manualCompilation: true,
+  //   name: "",
+  //   date: moment().format("YYYY-MM-DD"),
+  //   location: "AAT",
+  //   shift: "Mattina",
+  //   vehicle: "MSA-1",
+  //   role: "Tecnico",
+  // };
+  // const [isFormEnable, setIsFormEnable] = useState(true);
   const [userData, setUserData] = useState({});
-  const [formData, setFormData] = useState(blankFrom);
+  // const [formData, setFormData] = useState(blankFrom);
 
   // Get logged user data details
   const backEnd = process.env.REACT_APP_BACKEND;
@@ -34,11 +34,11 @@ const WorkedShift = (props) => {
       if (result.data) {
         setUserData(result.data)
         const userName = `${result.data.surname} ${result.data.name}`
-        setFormData(state => ({...state, name: userName}))
+        formUpdate("name", userName)
       }
     };
     fetchData()
-  }, []);
+  }, [backEnd]);
 
   // TODO: Select entries actually hardcoded, implement DB population
   const locationsList = [
@@ -70,7 +70,7 @@ const WorkedShift = (props) => {
                   checked={formData.manualCompilation}
                   onChange={event => {
                     const val = event.target.checked;
-                    setFormData(state => ({...state, manualCompilation: val}))
+                    formUpdate("manualCompilation", val)
                   }}
                   disabled={!isFormEnable}
                 />
@@ -109,7 +109,7 @@ const WorkedShift = (props) => {
                        value={formData.date}
                        onChange={event => {
                          const val = event.target.value
-                         setFormData(state => ({...state, date: val}))
+                         formUpdate("date", val)
                        }}
                        required
                 />
@@ -127,7 +127,7 @@ const WorkedShift = (props) => {
                     value={formData.location}
                     onChange={event => {
                       const val = event.target.value
-                      setFormData(state => ({...state, location: val}))
+                      formUpdate("location", val)
                     }}
                     disabled={!formData.manualCompilation}
                     required
@@ -156,7 +156,7 @@ const WorkedShift = (props) => {
                     value={formData.shift}
                     onChange={event => {
                       const val = event.target.value
-                      setFormData(state => ({...state, shift: val}))
+                      formUpdate("shift", val)
                     }}
                     disabled={!formData.manualCompilation}
                     required
@@ -185,7 +185,7 @@ const WorkedShift = (props) => {
                     value={formData.vehicle}
                     onChange={event => {
                       const val = event.target.value
-                      setFormData(state => ({...state, vehicle: val}))
+                      formUpdate("vehicle", val)
                     }}
                     disabled={!formData.manualCompilation}
                     required
@@ -214,7 +214,7 @@ const WorkedShift = (props) => {
                     value={formData.role}
                     onChange={event => {
                       const val = event.target.value
-                      setFormData(state => ({...state, role: val}))
+                      formUpdate("role", val)
                     }}
                     disabled={!formData.manualCompilation}
                     required
@@ -239,6 +239,10 @@ const WorkedShift = (props) => {
   )
 }
 
-WorkedShift.propTypes = {}
+WorkedShift.propTypes = {
+  isFormEnable: PropTypes.bool.isRequired,
+  formData: PropTypes.object.isRequired,
+  formUpdate: PropTypes.func.isRequired,
+}
 
 export default WorkedShift

@@ -1,15 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import moment from "moment";
 
-const ForgottenShift = (props) => {
-  const blankForm = {
-    stampForgot: false,
-    shiftStart: moment().subtract(6.5, "h").format("HH:mm"),
-    shiftEnd: moment().format("HH:mm"),
-  };
-  const [isFormEnable, setIsFormEnable] = useState(true);
-  const [formData, setFormData] = useState(blankForm);
+const ForgottenShift = ({isFormEnable, formData, formUpdate}) => {
 
   return (
     <>
@@ -27,7 +19,7 @@ const ForgottenShift = (props) => {
                   checked={formData.stampForgot}
                   onChange={event => {
                     const val = event.target.checked;
-                    setFormData(state => ({...state, stampForgot: val}))
+                    formUpdate("stampForgot", val)
                   }}
                   disabled={!isFormEnable}
                 />
@@ -45,7 +37,7 @@ const ForgottenShift = (props) => {
                        value={formData.shiftStart}
                        onChange={event => {
                          const val = event.target.value
-                         setFormData(state => ({...state, shiftStart: val}))
+                         formUpdate("shiftStart", val)
                        }}
                        required={formData.stampForgot}
                 />
@@ -63,7 +55,7 @@ const ForgottenShift = (props) => {
                        value={formData.shiftEnd}
                        onChange={event => {
                          const val = event.target.value
-                         setFormData(state => ({...state, shiftEnd: val}))
+                         formUpdate("shiftEnd", val)
                        }}
                        required={formData.stampForgot}
                 />
@@ -78,6 +70,10 @@ const ForgottenShift = (props) => {
   )
 }
 
-ForgottenShift.propTypes = {}
+ForgottenShift.propTypes = {
+  isFormEnable: PropTypes.bool.isRequired,
+  formData: PropTypes.object.isRequired,
+  formUpdate: PropTypes.func.isRequired,
+};
 
 export default ForgottenShift

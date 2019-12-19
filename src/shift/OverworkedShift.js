@@ -1,15 +1,7 @@
-import React, {useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import moment from "moment";
 
-const OverworkedShift = (props) => {
-  const blankForm = {
-    didOverwork: false,
-    overworkEnd: moment().format("HH:mm"),
-    mission: "203"
-  };
-  const [isFormEnable, setIsFormEnable] = useState(true);
-  const [formData, setFormData] = useState(blankForm);
+const OverworkedShift = ({isFormEnable, formData, formUpdate}) => {
 
   return (
     <>
@@ -26,8 +18,8 @@ const OverworkedShift = (props) => {
                   type="checkbox"
                   checked={formData.didOverwork}
                   onChange={event => {
-                    const val = event.target.checked
-                    setFormData(state => ({...state, didOverwork: val}))
+                    const val = event.target.checked;
+                    formUpdate("didOverwork", val)
                   }}
                   disabled={!isFormEnable}
                 />
@@ -45,7 +37,7 @@ const OverworkedShift = (props) => {
                        value={formData.mission}
                        onChange={event => {
                          const val = event.target.value
-                         setFormData(state => ({...state, mission: val}))
+                         formUpdate("mission", val)
                        }}
                        required={formData.didOverwork}
                 />
@@ -63,7 +55,7 @@ const OverworkedShift = (props) => {
                        value={formData.overworkEnd}
                        onChange={event => {
                          const val = event.target.value
-                         setFormData(state => ({...state, overworkEnd: val}))
+                         formUpdate("overworkEnd", val)
                        }}
                        required={formData.didOverwork}
                 />
@@ -78,6 +70,10 @@ const OverworkedShift = (props) => {
   )
 }
 
-OverworkedShift.propTypes = {}
+OverworkedShift.propTypes = {
+  isFormEnable: PropTypes.bool.isRequired,
+  formData: PropTypes.object.isRequired,
+  formUpdate: PropTypes.func.isRequired,
+};
 
 export default OverworkedShift
