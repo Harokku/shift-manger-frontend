@@ -84,7 +84,9 @@ const ShiftForm = (props) => {
         formData={forgottenShiftFormData}
         formUpdate={forgottenShiftUpdate}
       />
-      <SubmitButtons/>
+      <SubmitButtons
+        isLoading={!isFormEnable}
+      />
     </>
   )
 }

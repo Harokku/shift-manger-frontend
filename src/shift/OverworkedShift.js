@@ -33,7 +33,7 @@ const OverworkedShift = ({isFormEnable, formData, formUpdate}) => {
               <label className="label">Numero missione</label>
               <div className="control">
                 <input className="input" type="text" placeholder="203******"
-                       disabled={!formData.didOverwork}
+                       disabled={!isFormEnable || !formData.didOverwork}
                        value={formData.mission}
                        onChange={event => {
                          const val = event.target.value
@@ -51,7 +51,7 @@ const OverworkedShift = ({isFormEnable, formData, formUpdate}) => {
               <label className="label">Ora stimbratura</label>
               <div className="control">
                 <input className="input" type="time" placeholder="13:45"
-                       disabled={!formData.didOverwork}
+                       disabled={!isFormEnable || !formData.didOverwork}
                        value={formData.overworkEnd}
                        onChange={event => {
                          const val = event.target.value

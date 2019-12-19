@@ -33,7 +33,7 @@ const ForgottenShift = ({isFormEnable, formData, formUpdate}) => {
               <label className="label">Ora ingresso</label>
               <div className="control">
                 <input className="input" type="time" placeholder="13:45"
-                       disabled={!formData.stampForgot}
+                       disabled={!isFormEnable || !formData.stampForgot}
                        value={formData.shiftStart}
                        onChange={event => {
                          const val = event.target.value
@@ -51,7 +51,7 @@ const ForgottenShift = ({isFormEnable, formData, formUpdate}) => {
               <label className="label">Ora uscita</label>
               <div className="control">
                 <input className="input" type="time" placeholder="13:45"
-                       disabled={!formData.stampForgot}
+                       disabled={!isFormEnable || !formData.stampForgot}
                        value={formData.shiftEnd}
                        onChange={event => {
                          const val = event.target.value

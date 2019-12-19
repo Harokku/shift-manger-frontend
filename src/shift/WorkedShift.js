@@ -68,7 +68,7 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
               <label className="label">Data turno</label>
               <div className="control">
                 <input className="input" type="date" placeholder="Data"
-                       disabled={!formData.manualCompilation}
+                       disabled={!isFormEnable || !formData.manualCompilation}
                        value={formData.date}
                        onChange={event => {
                          const val = event.target.value
@@ -92,7 +92,7 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
                       const val = event.target.value
                       formUpdate("location", val)
                     }}
-                    disabled={!formData.manualCompilation}
+                    disabled={!isFormEnable || !formData.manualCompilation}
                     required
                   >
                     {
@@ -121,7 +121,7 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
                       const val = event.target.value
                       formUpdate("shift", val)
                     }}
-                    disabled={!formData.manualCompilation}
+                    disabled={!isFormEnable || !formData.manualCompilation}
                     required
                   >
                     {
@@ -150,7 +150,7 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
                       const val = event.target.value
                       formUpdate("vehicle", val)
                     }}
-                    disabled={!formData.manualCompilation}
+                    disabled={!isFormEnable || !formData.manualCompilation}
                     required
                   >
                     {
@@ -179,7 +179,7 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
                       const val = event.target.value
                       formUpdate("role", val)
                     }}
-                    disabled={!formData.manualCompilation}
+                    disabled={!isFormEnable || !formData.manualCompilation}
                     required
                   >
                     {
