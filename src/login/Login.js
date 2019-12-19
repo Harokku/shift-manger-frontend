@@ -29,7 +29,7 @@ const Login = (props) => {
     // Login the user
     const response = await axios.post(`${backend}/login`, user).catch(() => alert("Invalid user or pass"))
 
-    if (!response){
+    if (!response) {
       setFormEnable(true)
     }
 
@@ -91,7 +91,7 @@ const Login = (props) => {
                           <input
                             type="checkbox"
                             checked={rememberme}
-                            onChange={event => setRememberme(!event.target.checked)}
+                            onChange={event => setRememberme(event.target.checked)}
                             disabled={!formEnable}
                           />
                           Ricorda credenziali

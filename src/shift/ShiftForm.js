@@ -69,10 +69,9 @@ const ShiftForm = (props) => {
 
 
   // Handle submit posting data to backend
-  const devBackEnd= "http://localhost:1232"
+  const devBackEnd = "http://localhost:1232"
   const handleSubmit = async () => {
-    console.log("Submitting...")
-    console.info(marshalToBackEndFormat())
+    setIsFormEnable(false);
     try {
       await axios.post(
         `${devBackEnd}/sheets/shift`,
@@ -84,9 +83,14 @@ const ShiftForm = (props) => {
         }
       )
     } catch (e) {
-      console.log(e)
+      console.log(e);
+      alert(`Errore durante l'invio del turno:\n\n${e}\n\nRiprova piu tardi`)
+      setIsFormEnable(true);
+      return
     }
-    alert("Posted shift")
+    alert("Turno inviato correttamente");
+    handleReset();
+    setIsFormEnable(true);
   };
 
   // Marshal form data to backend JSON format
