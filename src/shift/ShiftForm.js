@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import WorkedShift from "./WorkedShift";
 import OverworkedShift from "./OverworkedShift";
@@ -6,10 +6,35 @@ import ForgottenShift from "./ForgottenShift";
 import SubmitButtons from "./SubmitButtons";
 import moment from "moment";
 import {updateFromObj} from "./formUpdate";
+import axios from "axios";
+import {readJWT} from "../utils/readJWT";
 
 const ShiftForm = (props) => {
   // Form enable state
   const [isFormEnable, setIsFormEnable] = useState(true);
+
+  // Logged user data for POST
+  const [userData, setUserData] = useState({});
+  // Get logged user data details
+  const backEnd = process.env.REACT_APP_BACKEND;
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(
+        `${backEnd}/users/userdetails`,
+        {
+          headers: {
+            Authorization: `Bearer ${readJWT()}`
+          }
+        }
+      );
+      if (result.data) {
+        setUserData(result.data)
+        const userName = `${result.data.surname} ${result.data.name}`
+        setWorkedShiftFormData(state => ({...state, name: userName}))
+      }
+    };
+    fetchData()
+  }, [backEnd]);
 
   // WorkedShift default and state
   const workedShiftDefault = {

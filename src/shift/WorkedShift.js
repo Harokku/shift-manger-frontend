@@ -1,44 +1,7 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import moment from "moment";
-import axios from "axios";
-import {readJWT} from "../utils/readJWT";
-
 
 const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
-  // const blankFrom = {
-  //   manualCompilation: true,
-  //   name: "",
-  //   date: moment().format("YYYY-MM-DD"),
-  //   location: "AAT",
-  //   shift: "Mattina",
-  //   vehicle: "MSA-1",
-  //   role: "Tecnico",
-  // };
-  // const [isFormEnable, setIsFormEnable] = useState(true);
-  const [userData, setUserData] = useState({});
-  // const [formData, setFormData] = useState(blankFrom);
-
-  // Get logged user data details
-  const backEnd = process.env.REACT_APP_BACKEND;
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get(
-        `${backEnd}/users/userdetails`,
-        {
-          headers: {
-            Authorization: `Bearer ${readJWT()}`
-          }
-        }
-      );
-      if (result.data) {
-        setUserData(result.data)
-        const userName = `${result.data.surname} ${result.data.name}`
-        formUpdate("name", userName)
-      }
-    };
-    fetchData()
-  }, [backEnd]);
 
   // TODO: Select entries actually hardcoded, implement DB population
   const locationsList = [
