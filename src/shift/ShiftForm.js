@@ -67,6 +67,59 @@ const ShiftForm = (props) => {
   const [forgottenShiftFormData, setForgottenShiftFormData] = useState(forgottenShiftDefault);
   const forgottenShiftUpdate = updateFromObj(setForgottenShiftFormData);
 
+
+  // Handle submit posting data to backend
+  const devBackEnd= "http://localhost:1232"
+  const handleSubmit = async () => {
+    console.log("Submitting...")
+    console.info(marshalToBackEndFormat())
+    try {
+      await axios.post(
+        `${devBackEnd}/sheets/shift`,
+        marshalToBackEndFormat(),
+        {
+          headers: {
+            Authorization: `Bearer ${readJWT()}`
+          }
+        }
+      )
+    } catch (e) {
+      console.log(e)
+    }
+    alert("Posted shift")
+  };
+
+  // Marshal form data to backend JSON format
+  const marshalToBackEndFormat = () => {
+    return {
+      // WorkedShift data
+      manual_compilation: workedShiftformData.manualCompilation,
+      name: workedShiftformData.name,
+      date: moment(workedShiftformData.date).toISOString(true),
+      location: workedShiftformData.location,
+      shift: workedShiftformData.shift,
+      vehicle: workedShiftformData.vehicle,
+      role: workedShiftformData.role,
+
+      // OverworkedShift data
+      did_overwork: overworkedShiftFormData.didOverwork,
+      overwork_end: moment(overworkedShiftFormData.overworkEnd, "HH:mm").toISOString(true),
+      mission: overworkedShiftFormData.mission,
+
+      // ForgottenShift data
+      stamp_forgot: forgottenShiftFormData.stampForgot,
+      shift_start: moment(forgottenShiftFormData.shiftStart, "HH:mm").toISOString(true),
+      shift_end: moment(forgottenShiftFormData.shiftEnd, "HH:mm").toISOString(true),
+    }
+  };
+
+  // Handle reset resetting form to default value
+  const handleReset = () => {
+    setWorkedShiftFormData(workedShiftDefault);
+    setOverworkedShiftFormData(overworkedShiftDefault);
+    setForgottenShiftFormData(forgottenShiftDefault);
+  }
+
   return (
     <>
       <WorkedShift
@@ -86,6 +139,8 @@ const ShiftForm = (props) => {
       />
       <SubmitButtons
         isLoading={!isFormEnable}
+        handleSubmit={handleSubmit}
+        handleReset={handleReset}
       />
     </>
   )
