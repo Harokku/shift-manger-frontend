@@ -13,13 +13,17 @@ const ShiftForm = (props) => {
   // Form enable state
   const [isFormEnable, setIsFormEnable] = useState(true);
 
+  // Form select data
+  const [formData, setFormData] = useState({});
+
   // Logged user data for POST
   const [userData, setUserData] = useState({});
   // Get logged user data details
   const backEnd = process.env.REACT_APP_BACKEND;
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(
+
+      const userDataResponse = await axios.get(
         `${backEnd}/users/userdetails`,
         {
           headers: {
@@ -27,10 +31,15 @@ const ShiftForm = (props) => {
           }
         }
       );
-      if (result.data) {
-        setUserData(result.data)
-        const userName = `${result.data.surname} ${result.data.name}`
+      if (userDataResponse.data) {
+        setUserData(userDataResponse.data)
+        const userName = `${userDataResponse.data.surname} ${userDataResponse.data.name}`
         setWorkedShiftFormData(state => ({...state, name: userName}))
+      }
+
+      const formDataResponse = await axios.get(`${backEnd}/shiftdata/all`)
+      if (formDataResponse.data) {
+        setFormData(formDataResponse.data)
       }
     };
     fetchData()
@@ -41,10 +50,10 @@ const ShiftForm = (props) => {
     manualCompilation: true,
     name: "",
     date: moment().format("YYYY-MM-DD"),
-    location: "AAT",
-    shift: "Mattina",
-    vehicle: "MSA-1",
-    role: "Tecnico",
+    location: formData.locations ? formData.locations[0].name : "...loading",
+    shift: formData.shifts ? formData.shifts[0].name : "...loading",
+    vehicle: formData.vehicles ? formData.vehicles[0].name : "...loading",
+    role: formData.roles ? formData.roles[0].name : "...loading",
   };
   const [workedShiftformData, setWorkedShiftFormData] = useState(workedShiftDefault);
   const workedShiftUpdate = updateFromObj(setWorkedShiftFormData);
@@ -127,6 +136,7 @@ const ShiftForm = (props) => {
     <>
       <WorkedShift
         isFormEnable={isFormEnable}
+        selectEntries={formData}
         formData={workedShiftformData}
         formUpdate={workedShiftUpdate}
       />
