@@ -1,21 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
-
-  // TODO: Select entries actually hardcoded, implement DB population
-  const locationsList = [
-    "AAT", "Tradate", "Varese"
-  ];
-  const shiftsList = [
-    "Mattina", "Pomeriggio", "Notte"
-  ];
-  const vehiclesList = [
-    "MSA-1", "MSA-2", "MSB-2", "MSB-3"
-  ];
-  const rolesList = [
-    "Tecnico", "Autista", "Capo equipaggio", "Soccorritore"
-  ];
+const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate}) => {
 
   return (
     <>
@@ -96,9 +82,11 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
                     required
                   >
                     {
-                      locationsList.map(location => (
-                        <option key={location} value={location}>{location}</option>
-                      ))
+                      selectEntries.locations
+                        ? selectEntries.locations.map(location => (
+                          <option key={location.id} value={location.name}>{location.name}</option>
+                        ))
+                        : <option>...loading</option>
                     }
                   </select>
                 </div>
@@ -125,9 +113,11 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
                     required
                   >
                     {
-                      shiftsList.map(shift => (
-                        <option key={shift} value={shift}>{shift}</option>
-                      ))
+                      selectEntries.shifts
+                        ? selectEntries.shifts.map(shift => (
+                          <option key={shift.id} value={shift.name}>{shift.name}</option>
+                        ))
+                        : <option>...loading</option>
                     }
                   </select>
                 </div>
@@ -154,9 +144,11 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
                     required
                   >
                     {
-                      vehiclesList.map(vehicle => (
-                        <option key={vehicle} value={vehicle}>{vehicle}</option>
-                      ))
+                      selectEntries.vehicles
+                        ? selectEntries.vehicles.map(vehicle => (
+                          <option key={vehicle.id} value={vehicle.name}>{vehicle.name}</option>
+                        ))
+                        : <option>...loading</option>
                     }
                   </select>
                 </div>
@@ -183,9 +175,11 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
                     required
                   >
                     {
-                      rolesList.map(role => (
-                        <option key={role} value={role}>{role}</option>
-                      ))
+                      selectEntries.roles
+                        ? selectEntries.roles.map(role => (
+                          <option key={role.id} value={role.name}>{role.name}</option>
+                        ))
+                        : <option>...loading</option>
                     }
                   </select>
                 </div>
@@ -204,6 +198,7 @@ const WorkedShift = ({isFormEnable, formData, formUpdate}) => {
 
 WorkedShift.propTypes = {
   isFormEnable: PropTypes.bool.isRequired,
+  selectEntries: PropTypes.object.isRequired,
   formData: PropTypes.object.isRequired,
   formUpdate: PropTypes.func.isRequired,
 }

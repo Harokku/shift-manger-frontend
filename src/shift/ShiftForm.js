@@ -8,10 +8,17 @@ import moment from "moment";
 import {updateFromObj} from "./formUpdate";
 import axios from "axios";
 import {readJWT} from "../utils/readJWT";
+import "bulma-pageloader/dist/css/bulma-pageloader.min.css"
 
 const ShiftForm = (props) => {
+  // Initial data fetching loading
+  const [isInitialLoading, setIsInitialLoading] = useState(true)
+
   // Form enable state
   const [isFormEnable, setIsFormEnable] = useState(true);
+
+  // Form select data
+  const [formData, setFormData] = useState({});
 
   // Logged user data for POST
   const [userData, setUserData] = useState({});
@@ -19,7 +26,8 @@ const ShiftForm = (props) => {
   const backEnd = process.env.REACT_APP_BACKEND;
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios.get(
+
+      const userDataResponse = await axios.get(
         `${backEnd}/users/userdetails`,
         {
           headers: {
@@ -27,24 +35,58 @@ const ShiftForm = (props) => {
           }
         }
       );
-      if (result.data) {
-        setUserData(result.data)
-        const userName = `${result.data.surname} ${result.data.name}`
+      if (userDataResponse.data) {
+        setUserData(userDataResponse.data)
+        const userName = `${userDataResponse.data.surname} ${userDataResponse.data.name}`
         setWorkedShiftFormData(state => ({...state, name: userName}))
       }
+
+      const formDataResponse = await axios.get(
+        `${backEnd}/shiftdata/all`,
+        {
+          headers: {
+            Authorization: `Bearer ${readJWT()}`
+          }
+        }
+      );
+      if (formDataResponse.data) {
+        setFormData(formDataResponse.data)
+      }
+
+      const assignedShiftResponse = await axios.get(
+        `${backEnd}/shiftdata/today`,
+        {
+          headers: {
+            Authorization: `Bearer ${readJWT()}`
+          }
+        }
+      );
+      if (assignedShiftResponse.data) {
+        setWorkedShiftFormData(state => ({
+          ...state,
+          location: assignedShiftResponse.data.location.name,
+          shift: assignedShiftResponse.data.shift.name,
+          vehicle: assignedShiftResponse.data.vehicle.name,
+          role: assignedShiftResponse.data.role.name,
+          fetched: true,
+        }))
+      }
+
     };
-    fetchData()
-  }, [backEnd]);
+    fetchData();
+    setIsInitialLoading(false)
+  }, [backEnd, isInitialLoading]);
 
   // WorkedShift default and state
   const workedShiftDefault = {
-    manualCompilation: true,
+    fetched: false,
+    manualCompilation: false,
     name: "",
     date: moment().format("YYYY-MM-DD"),
-    location: "AAT",
-    shift: "Mattina",
-    vehicle: "MSA-1",
-    role: "Tecnico",
+    location: "...loading",
+    shift: "...loading",
+    vehicle: "...loading",
+    role: "...loading",
   };
   const [workedShiftformData, setWorkedShiftFormData] = useState(workedShiftDefault);
   const workedShiftUpdate = updateFromObj(setWorkedShiftFormData);
@@ -121,12 +163,18 @@ const ShiftForm = (props) => {
     setWorkedShiftFormData(workedShiftDefault);
     setOverworkedShiftFormData(overworkedShiftDefault);
     setForgottenShiftFormData(forgottenShiftDefault);
+    setIsInitialLoading(true);
   }
 
   return (
     <>
+      <div
+        className={`pageloader is-bottom-to-top ${workedShiftformData.fetched ? "" : "is-active"}`}>
+        <span className="title">Loading shift data</span>
+      </div>
       <WorkedShift
         isFormEnable={isFormEnable}
+        selectEntries={formData}
         formData={workedShiftformData}
         formUpdate={workedShiftUpdate}
       />

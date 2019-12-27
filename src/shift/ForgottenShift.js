@@ -23,7 +23,7 @@ const ForgottenShift = ({isFormEnable, formData, formUpdate}) => {
                   }}
                   disabled={!isFormEnable}
                 />
-                Hai dimenticato di stimbrare?
+                Mancata timbratura
               </label>
             </div>
           </div>
