@@ -1,11 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import "bulma-switch/dist/css/bulma-switch.min.css"
 
 const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate}) => {
 
   return (
     <>
-      <div className="container">
+      <section className="section is-small">
         <div className="panel is-info">
           <p className="panel-heading">
             Turno svolto
@@ -13,22 +14,31 @@ const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate}) => {
 
           <div className="panel-block">
             <div className="field">
-              <label className="checkbox">
-                <input
-                  type="checkbox"
-                  checked={formData.manualCompilation}
-                  onChange={event => {
-                    const val = event.target.checked;
-                    formUpdate("manualCompilation", val)
-                  }}
-                  disabled={!isFormEnable}
-                />
+              <input
+                className="switch is-thin is-info"
+                id="switchManualCompilation"
+                type="checkbox"
+                name="switchManualCompilation"
+                checked={formData.manualCompilation}
+                onChange={event => {
+                  const val = event.target.checked;
+                  formUpdate("manualCompilation", val)
+                }}
+                disabled={!isFormEnable}
+              />
+              <label htmlFor="switchManualCompilation">
                 Turno svolto diverso da quello preimpostato
               </label>
               <div className="control">
                 <input
+                  value={formData.motivation}
                   className="input" type="text" placeholder="Motivazione"
-                  disabled={!formData.manualCompilation}
+                  disabled={!isFormEnable || !formData.manualCompilation}
+                  required={formData.manualCompilation}
+                  onChange={event => {
+                    const val = event.target.value
+                    formUpdate("motivation", val)
+                  }}
                 />
               </div>
               <p className="help">Motivazione turno differente da quello assegnato</p>
@@ -191,7 +201,7 @@ const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate}) => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
     </>
   )
 }
