@@ -27,8 +27,14 @@ const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate}) => {
               </label>
               <div className="control">
                 <input
+                  value={formData.motivation}
                   className="input" type="text" placeholder="Motivazione"
-                  disabled={!formData.manualCompilation}
+                  disabled={!isFormEnable || !formData.manualCompilation}
+                  required={formData.manualCompilation}
+                  onChange={event => {
+                    const val = event.target.value
+                    formUpdate("motivation", val)
+                  }}
                 />
               </div>
               <p className="help">Motivazione turno differente da quello assegnato</p>
