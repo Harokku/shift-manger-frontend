@@ -53,7 +53,6 @@ const ShiftForm = (props) => {
         setFormData(formDataResponse.data)
       }
 
-      // FIXME: Manage assigned shift not found
       const assignedShiftResponse = await axios.get(
         `${backEnd}/shiftdata/today`,
         {
@@ -67,7 +66,7 @@ const ShiftForm = (props) => {
           ...state,
           fetched: true,
           manualCompilation: true,
-          motivation:"Impossibile reperire turno in automatico"
+          motivation: "Impossibile reperire turno in automatico"
         }))
       });
       if (assignedShiftResponse && assignedShiftResponse.data) {
@@ -149,6 +148,7 @@ const ShiftForm = (props) => {
     return {
       // WorkedShift data
       manual_compilation: workedShiftformData.manualCompilation,
+      motivation: workedShiftformData.motivation,
       name: workedShiftformData.name,
       date: moment(workedShiftformData.date).toISOString(true),
       location: workedShiftformData.location,
