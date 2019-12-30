@@ -61,7 +61,7 @@ const ShiftForm = (props) => {
           }
         }
       ).catch(err => {
-        console.error("Error retrieving assigned shift")
+        console.error(`Error retrieving assigned shift: ${err}`)
         setWorkedShiftFormData(state => ({
           ...state,
           fetched: true,

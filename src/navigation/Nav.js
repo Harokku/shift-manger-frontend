@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {Link, Route, Switch} from "react-router-dom";
 import Login from "../login/Login";
 import ShiftForm from "../shift/ShiftForm";
+import ShiftMain from "../shift/ShiftMain";
 
 const Nav = (props) => {
   
@@ -38,7 +39,7 @@ const Nav = (props) => {
 
       <Switch>
         <Route path="/shift">
-          <ShiftForm/>
+          <ShiftMain/>
         </Route>
       </Switch>
 

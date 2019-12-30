@@ -21,7 +21,7 @@ const ForgottenShift = ({isFormEnable, formData, formUpdate}) => {
                      }}
                      disabled={!isFormEnable}
               />
-              <label htmlFor="switchForgottenShift">Straordinari</label>
+              <label htmlFor="switchForgottenShift">Mancata timbratura</label>
             </div>
           </div>
 
