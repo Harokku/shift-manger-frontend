@@ -174,7 +174,54 @@ const ShiftForm = (props) => {
     setOverworkedShiftFormData(overworkedShiftDefault);
     setForgottenShiftFormData(forgottenShiftDefault);
     setIsInitialLoading(true);
-  }
+  };
+
+  const handleDateChange = async (shiftDate) => {
+    // Set form in fetching mode
+    setWorkedShiftFormData(state => ({
+      ...state,
+      fetched: false,
+      manualCompilation: false,
+      motivation: ""
+    }));
+    console.info(shiftDate)
+
+    // Parse form date to be compatible with backend
+    const parsedDate = moment(shiftDate, "YYYY-MM-DD").format("YYYYMMDD")
+
+    console.info(parsedDate)
+
+    // Call backend for required shift data
+    const assignedShiftResponse = await axios.get(
+      `${backEnd}/shiftdata/date/${parsedDate}`,
+      {
+        headers: {
+          Authorization: `Bearer ${readJWT()}`
+        }
+      }
+    ).catch(err => {
+      console.error("Error retrieving assigned shift")
+      setWorkedShiftFormData(state => ({
+        ...state,
+        fetched: true,
+        manualCompilation: true,
+        motivation: "Impossibile reperire turno in automatico"
+      }))
+    });
+
+    // If ok, update form
+    if (assignedShiftResponse && assignedShiftResponse.data) {
+      setWorkedShiftFormData(state => ({
+        ...state,
+        location: assignedShiftResponse.data.location.name,
+        shift: assignedShiftResponse.data.shift.name,
+        vehicle: assignedShiftResponse.data.vehicle.name,
+        role: assignedShiftResponse.data.role.name,
+        fetched: true,
+      }))
+    }
+
+  };
 
   return (
     <>
@@ -187,6 +234,7 @@ const ShiftForm = (props) => {
         selectEntries={formData}
         formData={workedShiftformData}
         formUpdate={workedShiftUpdate}
+        dateChange={handleDateChange}
       />
       <OverworkedShift
         isFormEnable={isFormEnable}
