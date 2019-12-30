@@ -21,7 +21,7 @@ const OverworkedShift = ({isFormEnable, formData, formUpdate}) => {
                      }}
                      disabled={!isFormEnable}
               />
-              <label htmlFor="switchOverWork">Mancata timbratura</label>
+              <label htmlFor="switchOverWork">Straordinari</label>
             </div>
           </div>
 
