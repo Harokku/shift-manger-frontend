@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import "bulma-switch/dist/css/bulma-switch.min.css"
 
-const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate}) => {
+const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate, dateChange}) => {
 
   return (
     <>
@@ -69,6 +69,7 @@ const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate}) => {
                        onChange={event => {
                          const val = event.target.value
                          formUpdate("date", val)
+                         dateChange(val)
                        }}
                        required
                 />
@@ -211,6 +212,7 @@ WorkedShift.propTypes = {
   selectEntries: PropTypes.object.isRequired,
   formData: PropTypes.object.isRequired,
   formUpdate: PropTypes.func.isRequired,
+  dateChange: PropTypes.func.isRequired,
 }
 
 export default WorkedShift
