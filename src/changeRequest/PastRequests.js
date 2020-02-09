@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import axios from "axios"
 import {readJWT} from "../utils/readJWT";
+import Request from "./Request";
 
 const PastRequests = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,6 +35,13 @@ const PastRequests = (props) => {
   return (
     <>
       {console.info(pastRequests)}
+      <div className="container">
+        {pastRequests &&
+        pastRequests.map(request => (
+          <Request key={request.id} requestData={request}/>
+        ))
+        }
+      </div>
     </>
   )
 }
