@@ -17,26 +17,26 @@ const Nav = (props) => {
           <div className="tabs is-toggle is-toggle-rounded is-centered">
             <ul>
               <li>
-                <Link activeClassName="is-active" to="shift">
+                <Link className="is-active" to="shift">
                   <span className="icon is-small"><i className="fas fa-envelope"/></span>
                   <span>Turno</span>
                 </Link>
               </li>
               <li>
-                <Link activeClassName="is-active" to="change">
+                <Link className="is-active" to="change">
                   <span className="icon is-small"><i className="fas fa-retweet"/></span>
                   <span>Cambi</span>
                 </Link>
               </li>
               <li>
-                <Link activeClassName="is-active" to="license">
+                <Link className="is-active" to="license">
                   <span className="icon is-small"><i className="fas fa-calendar-times"/></span>
                   <span>Permessi</span>
                 </Link>
               </li>
               {checkIfRole("manager")
                 ? <li>
-                  <Link activeClassName="is-active" to="managerequests">
+                  <Link className="is-active" to="managerequests">
                     <span className="icon is-small"><i className="fas fa-balance-scale"/></span>
                     <span>Gestione</span>
                   </Link>

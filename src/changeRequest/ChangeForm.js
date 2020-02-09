@@ -59,11 +59,11 @@ const ChangeForm = (props) => {
       return
     }
     alert("Richietsa di cambio inviata correttamente")
+
   };
 
   return (
     <>
-      {console.info(moment(selectedDate).toISOString(true))}
       <div className="container">
         <div className="columns is-centered is-narrow">
           <div className="column is-half">
@@ -77,7 +77,7 @@ const ChangeForm = (props) => {
               <div className="control has-icons-left">
                 <div className="select">
                   <select
-                    value={selOperator ? selOperator : null}
+                    value={selOperator ? selOperator : ""}
                     onChange={event => {
                       setSelOperator(event.target.value)
                     }}

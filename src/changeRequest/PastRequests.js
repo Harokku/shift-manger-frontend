@@ -34,7 +34,6 @@ const PastRequests = (props) => {
 
   return (
     <>
-      {console.info(pastRequests)}
       <div className="container">
         {pastRequests &&
         pastRequests.map(request => (
