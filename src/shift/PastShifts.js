@@ -26,10 +26,10 @@ const PastShifts = (props) => {
         setIsLoading(false)
       })
       if (pastTurnsResponse && pastTurnsResponse.data) {
-        setPastShifts(pastTurnsResponse.data)
-        setIsLoading(false)
+        setPastShifts(pastTurnsResponse.data);
+        setIsLoading(false);
       }
-    }
+    };
     fetchData();
   }, []);
 
