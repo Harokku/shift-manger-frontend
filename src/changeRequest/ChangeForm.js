@@ -91,7 +91,7 @@ const ChangeForm = (props) => {
                       {
                         operators
                           ? operators.map(operator => (
-                            <option key={operator.id} value={operator.id}>{operator.surname}</option>
+                            <option key={operator.id} value={operator.id}>{operator.surname} {operator.name}</option>
                           ))
                           : <option>...loading</option>
                       }

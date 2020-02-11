@@ -209,7 +209,7 @@ const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate, dateCha
                 <input
                   value={formData.note}
                   className="input" type="text" placeholder="Eventuali note"
-                  disabled={!isFormEnable || !formData.manualCompilation}
+                  disabled={!isFormEnable}
                   onChange={event => {
                     const val = event.target.value
                     formUpdate("note", val)
