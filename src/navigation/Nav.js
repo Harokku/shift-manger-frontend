@@ -6,6 +6,7 @@ import ShiftForm from "../shift/ShiftForm";
 import ShiftMain from "../shift/ShiftMain";
 import {checkIfRole} from "../utils/checkRole";
 import ChangeMain from "../changeRequest/ChangeMain";
+import RequestsMain from "../manageRequest/RequestsMain";
 
 const Nav = (props) => {
 
@@ -54,6 +55,9 @@ const Nav = (props) => {
         </Route>
         <Route path="/change">
           <ChangeMain/>
+        </Route>
+        <Route path="/managerequests">
+          <RequestsMain/>
         </Route>
       </Switch>
 
