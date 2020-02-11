@@ -96,6 +96,7 @@ const ShiftForm = (props) => {
     shift: "...loading",
     vehicle: "...loading",
     role: "...loading",
+    note: "",
   };
   const [workedShiftformData, setWorkedShiftFormData] = useState(workedShiftDefault);
   const workedShiftUpdate = updateFromObj(setWorkedShiftFormData);
@@ -155,6 +156,7 @@ const ShiftForm = (props) => {
       shift: workedShiftformData.shift,
       vehicle: workedShiftformData.vehicle,
       role: workedShiftformData.role,
+      note: workedShiftformData.note,
 
       // OverworkedShift data
       did_overwork: overworkedShiftFormData.didOverwork,

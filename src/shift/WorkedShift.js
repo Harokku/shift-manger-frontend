@@ -201,6 +201,25 @@ const WorkedShift = ({isFormEnable, selectEntries, formData, formUpdate, dateCha
               <p className="help">Ruolo ricoperto durante il turno</p>
             </div>
           </div>
+
+          <div className="panel-block">
+            <div className="field">
+              <label className="label">Note eventuali</label>
+              <div className="control has-icons-left">
+                <input
+                  value={formData.note}
+                  className="input" type="text" placeholder="Eventuali note"
+                  disabled={!isFormEnable || !formData.manualCompilation}
+                  onChange={event => {
+                    const val = event.target.value
+                    formUpdate("note", val)
+                  }}
+                />
+              </div>
+              <p className="help">Eventuali note da aggiungere al turno svolto</p>
+            </div>
+          </div>
+
         </div>
       </section>
     </>
