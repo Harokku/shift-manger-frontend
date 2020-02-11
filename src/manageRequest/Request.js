@@ -22,7 +22,7 @@ const Request = (props) => {
             <div className="level-left">
               <button className="button is-success is-outlined is-small is-rounded"
                       disabled={props.status !== "pending"}
-                      onClick={() => props.handleRequest(true)}
+                      onClick={() => props.handleRequest(props.id, 'accepted')}
               >
                 <span className="icon is-small">
                   <i className="fas fa-check"/>
@@ -33,7 +33,7 @@ const Request = (props) => {
             <div className="level-right">
               <button className="button is-danger is-outlined is-small is-rounded"
                       disabled={props.status !== "pending"}
-                      onClick={() => props.handleRequest(false)}
+                      onClick={() => props.handleRequest(props.id, 'rejected')}
               >
                 <span className="icon is-small">
                   <i className="fas fa-times"/>
@@ -49,6 +49,7 @@ const Request = (props) => {
 }
 
 Request.propTypes = {
+  id: PropTypes.string.isRequired,
   status: PropTypes.oneOf(['rejected', 'pending', 'accepted']).isRequired,
   requestDate: PropTypes.string.isRequired,
   applicant: PropTypes.string.isRequired,

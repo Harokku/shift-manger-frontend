@@ -29,7 +29,7 @@ const ChangeForm = (props) => {
         }
       );
       if (operatorsResponse.data) {
-        setOpeators(operatorsResponse.data)
+        setOpeators(operatorsResponse.data);
         setSelOperator(operatorsResponse.data[0].id)
       }
     }
