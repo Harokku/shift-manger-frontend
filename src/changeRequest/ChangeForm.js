@@ -64,49 +64,55 @@ const ChangeForm = (props) => {
 
   return (
     <>
-      <div className="container">
-        <div className="columns is-centered is-narrow">
-          <div className="column is-half">
-            <p>Seleziona data per il cambio</p>
-            <Calendar
-              value={selectedDate}
-              onChange={setSelectedDate}
-            />
-            <div className="field">
-              <label className="label">Con:</label>
-              <div className="control has-icons-left">
-                <div className="select">
-                  <select
-                    value={selOperator ? selOperator : ""}
-                    onChange={event => {
-                      setSelOperator(event.target.value)
-                    }}
-                    required
-                  >
-                    {
-                      operators
-                        ? operators.map(operator => (
-                          <option key={operator.id} value={operator.id}>{operator.surname}</option>
-                        ))
-                        : <option>...loading</option>
-                    }
-                  </select>
+      <div className="columns is-centered">
+        <div className="column has-text-centered is-half">
+          <p>Seleziona data per il cambio</p>
+          <div className="level is-mobile">
+            <div className="level-item">
+              <Calendar
+                value={selectedDate}
+                onChange={setSelectedDate}
+              />
+            </div>
+          </div>
+          <div className="level is-mobile">
+            <div className="level-item">
+              <div className="field">
+                <label className="label">Con: </label>
+                <div className="control has-icons-left">
+                  <div className="select">
+                    <select
+                      value={selOperator ? selOperator : ""}
+                      onChange={event => {
+                        setSelOperator(event.target.value)
+                      }}
+                      required
+                    >
+                      {
+                        operators
+                          ? operators.map(operator => (
+                            <option key={operator.id} value={operator.id}>{operator.surname}</option>
+                          ))
+                          : <option>...loading</option>
+                      }
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
-            <section className="section">
-              <div className="level is-mobile">
-                <div className="level-left">
-                  <button
-                    className={`button is-rounded is-success`}
-                    onClick={handleSubmit}
-                  >
-                    Invia
-                  </button>
-                </div>
-              </div>
-            </section>
           </div>
+          <section className="section">
+            <div className="level is-mobile">
+              <div className="level-item">
+                <button
+                  className={`button is-rounded is-success`}
+                  onClick={handleSubmit}
+                >
+                  Invia
+                </button>
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </>
