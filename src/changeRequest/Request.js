@@ -7,7 +7,7 @@ const Request = ({requestData}) => {
   const requestStatus = {
     rejected: {
       status: "Rifiutato",
-      color: "is-warning"
+      color: "is-danger"
     },
     pending: {
       status: "In attesa",
@@ -25,7 +25,9 @@ const Request = ({requestData}) => {
         <article className="media">
           <div className="media-content">
             <div className="content">
-              Cambio del {moment(requestData.applicant_date).format("dddd DD MMM YYYY")}
+              Cambio del:
+              <br/>
+              <strong>{moment(requestData.applicant_date).format("dddd DD MMM YYYY")}</strong>
               <br/>
               Con il collega <strong>{requestData.with_name}</strong>
             </div>
