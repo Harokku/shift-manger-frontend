@@ -7,6 +7,7 @@ import ShiftMain from "../shift/ShiftMain";
 import {checkIfRole} from "../utils/checkRole";
 import ChangeMain from "../changeRequest/ChangeMain";
 import RequestsMain from "../manageRequest/RequestsMain";
+import LicenseMain from "../license/LicenseMain";
 
 const Nav = (props) => {
 
@@ -55,6 +56,9 @@ const Nav = (props) => {
         </Route>
         <Route path="/change">
           <ChangeMain/>
+        </Route>
+        <Route path="/license">
+          <LicenseMain/>
         </Route>
         <Route path="/managerequests">
           <RequestsMain/>
