@@ -5,7 +5,7 @@ import moment from "moment";
 import axios from "axios";
 import {readJWT} from "../utils/readJWT";
 
-const LicenceForm = (props) => {
+const IllnessForm = (props) => {
   const backEnd = process.env.REACT_APP_BACKEND;
 
   // Initialize new default date
@@ -31,17 +31,15 @@ const LicenceForm = (props) => {
     setReqDate(newDate);
   };
 
-  // Motivation and if change is requested from coordinator
-  const [motivation, setMotivation] = useState("");
-  const [isFromCoordinator, setIsFromCoordinator] = useState(false);
+  // Protocol number
+  const [protocolNumber, setProtocolNumber] = useState("");
 
   // Marshal from data to backend JSON format
   const marshalToBackEndFormat = () => (
     {
       from: moment(reqDate.raw[0]).toISOString(true),
       to: moment(reqDate.raw[1]).toISOString(true),
-      motivation: motivation,
-      from_coordinator: isFromCoordinator,
+      protocol_number: protocolNumber,
     }
   );
 
@@ -50,7 +48,7 @@ const LicenceForm = (props) => {
     console.info(marshalToBackEndFormat());
     try {
       await axios.post(
-        `${backEnd}/license/request`,
+        `${backEnd}/illness/request`,
         marshalToBackEndFormat(),
         {
           headers: {
@@ -60,10 +58,10 @@ const LicenceForm = (props) => {
       )
     } catch (e) {
       console.error(e)
-      alert(`Errore durante l'invio della richiesta ferie:\n\n${e}`);
+      alert(`Errore durante l'invio dell'attestazione di malattia:\n\n${e}`);
       return
     }
-    alert(`Richiesta ferie inviata correttamente`)
+    alert(`Attestazione malattia inviata correttamente`)
     handleReset();
   };
 
@@ -75,8 +73,7 @@ const LicenceForm = (props) => {
       end: defaultDateFormat,
       isPristine: true,
     });
-    setMotivation("");
-    setIsFromCoordinator(false);
+    setProtocolNumber("");
   };
 
   return (
@@ -84,7 +81,7 @@ const LicenceForm = (props) => {
       <section className="section is-small">
         <div className="panel is-info">
           <p className="panel-heading">
-            Richiesta ferie
+            Attestazione malattia
           </p>
 
           <div className="panel-block">
@@ -103,15 +100,15 @@ const LicenceForm = (props) => {
 
           <div className="panel-block">
             <div className="field">
-              <label className="label">Motivazione</label>
+              <label className="label">Numero Protocollo</label>
               <div className="control has-icons-left">
                 <input
-                  value={motivation}
-                  className="input" type="text" placeholder="Motivazione richiesta"
+                  value={protocolNumber}
+                  className="input" type="text" placeholder="Numero protocollo"
                   required
                   onChange={event => {
                     const val = event.target.value;
-                    setMotivation(val)
+                    setProtocolNumber(val)
                   }}
                 />
               </div>
@@ -119,26 +116,10 @@ const LicenceForm = (props) => {
           </div>
 
           <div className="panel-block">
-            <div className="field">
-              <input id="fromCoordinatorSwitch"
-                     type="checkbox"
-                     name="fromCoordinatorSwitch"
-                     className="switch"
-                     checked={isFromCoordinator}
-                     onChange={event => {
-                       const val = event.target.checked;
-                       setIsFromCoordinator(val)
-                     }}
-              />
-              <label htmlFor="fromCoordinatorSwitch">Richiesto da coordinatore</label>
-            </div>
-          </div>
-
-          <div className="panel-block">
             <button className="button is-success"
                     disabled={reqDate.isPristine}
                     onClick={handleSubmit}
-            >Invia richiesta
+            >Invia attestazione
             </button>
           </div>
 
@@ -148,6 +129,7 @@ const LicenceForm = (props) => {
   )
 }
 
-LicenceForm.propTypes = {}
 
-export default LicenceForm
+IllnessForm.propTypes = {}
+
+export default IllnessForm
