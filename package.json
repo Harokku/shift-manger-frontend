@@ -14,7 +14,7 @@
     "bulma-switch": "^2.0.0",
     "history": "^4.10.1",
     "jwt-decode": "^2.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "node-sass": "^4.13.0",
     "prop-types": "latest",
     "react": "^16.12.0",
